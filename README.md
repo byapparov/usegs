@@ -18,7 +18,7 @@ This is a basic example which shows you how to save acceptance data into testtha
 
 ``` r
 ## This code ran in the working directory of package will create files in `tests/testthat/data/{sheet-name}/` folder
-use_gs(
+use_gs_acceptance(
   x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
   extension = "csv"
 )

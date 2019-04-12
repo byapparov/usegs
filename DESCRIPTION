@@ -1,11 +1,11 @@
 Package: usegs
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Allows to import data from Google Sheets into R Project or Package.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Bulat Yapparov
+Maintainer: Bulat Yapparov<bulat.yapparov@made.com>
+Description: Package allows to import sample or accepatnce data into projects in a similar 
+  way that usethis package allows to add this to packages.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

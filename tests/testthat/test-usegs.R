@@ -1,8 +1,8 @@
 context("usegs")
 
-describe("usegs()", {
+describe("use_gs_acceptance()", {
   it("creates local files from a given spreadsheet", {
-    use_gs(
+    use_gs_acceptance(
       x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
       extension = "csv"
     )
