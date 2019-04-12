@@ -7,11 +7,16 @@ describe("usegs()", {
       extension = "csv"
     )
 
-    tab.names <- c("multiple-files-in", "single-file-in", "file-out")
+    multiple.files.in <- c(
+      "purchase_order_approved",
+      "eta_etd_changed",
+      "sud_updated",
+      "order_intake_complete"
+    )
+
+    tab.names <- c(multiple.files.in, "single-file-in", "file-out")
     file.name <- "usegs-acceptance"
     expected.file.paths <- paste0("tests/testthat/data/", file.name, "/", tab.names, ".csv")
-    print(expected.file.paths)
-    print(file.exists(expected.file.paths))
     expect_true(all(file.exists(expected.file.paths)))
   })
 })

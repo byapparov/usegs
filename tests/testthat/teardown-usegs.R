@@ -1,0 +1,1 @@
+unlink("tests", recursive = TRUE)

@@ -31,36 +31,53 @@ use_gs <- function(x, extension = "csv") {
 
 #' @noRd
 #' @importFrom utils write.csv
+#' @import data.table
 gs_save_worksheet <- function(x, name, dir, extension) {
   mock_file <- NULL
-  data.path <- paste0(dir, "/", name, ".", extension)
-  if (extension == "csv") {
-    write.csv(
-      x = x,
-      file = data.path,
-      row.names = FALSE
-    )
-  }
-  else if (extension == "json") {
-    if ("mock_file" %in% colnames(x)) {
-      dt <- data.table::data.table(x)
-      mock.files <- unique(dt[, mock_file])
-      lapply(mock.files, function(mock.file) {
+  save_fn <- make_save_mock_data(extension)
 
-        jsonlite::stream_out(
-          x = dt[mock_file == mock.file, !"mock_file"],
-          con = file(paste0(dir, "/", mock.file, ".", extension))
-        )
-      })
-    }
-    else {
-      jsonlite::stream_out(
-        x = x,
-        con = file(data.path)
+  if ("mock_file" %in% colnames(x)) {
+    dt <- data.table::data.table(x)
+    mock.files <- unique(dt[, mock_file])
+    lapply(mock.files, function(mock.file) {
+      save_fn(
+        x = dt[mock_file == mock.file, !"mock_file"],
+        file.name = mock.file,
+        dir = dir
       )
-    }
+    })
   }
   else {
-    stop("Only csv and json are excepted as test data formats")
+    save_fn(
+      x = x,
+      file.name = name,
+      dir = dir
+    )
   }
+}
+
+save_mock_data_json <- function(x, file.name, dir) {
+  jsonlite::stream_out(
+    x = x,
+    con = file(paste0(dir, "/", file.name, ".json"))
+  )
+}
+
+save_mock_data_csv <- function(x, file.name, dir) {
+  write.csv(
+    x = x,
+    file = paste0(dir, "/", file.name, ".csv"),
+    row.names = FALSE
+  )
+}
+
+make_save_mock_data <- function(extension) {
+  switch(extension,
+    csv = {
+      save_mock_data_csv
+    },
+    json = {
+      save_mock_data_json
+    }
+  )
 }
