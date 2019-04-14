@@ -1,6 +1,6 @@
 Package: usegs
 Type: Package
-Title: Allows to import data from Google Sheets into R Project or Package.
+Title: Allows to import data from Google Sheets into R Project or Package
 Version: 0.1.0
 Author: Bulat Yapparov
 Maintainer: Bulat Yapparov<bulat.yapparov@made.com>

@@ -12,7 +12,7 @@ use_gs_acceptance <- function(x, extension = "csv") {
   tabs <- gap$ws$ws_title
   title <- clean_path(gap$sheet_title)
 
-  data.dir = path_acceptance_data(title)
+  data.dir <- path_acceptance_data(title)
   if (!dir.exists(data.dir)) {
     dir.create(data.dir, recursive = TRUE)
   }
@@ -28,7 +28,7 @@ path_acceptance_data <- function(title, root = "tests/testthat/data") {
 }
 
 path_acceptance_code <- function(title, root = "tests/testthat") {
-  paste0(root, "/test-", clean_path(title), ".R")
+  paste0(root, "/", "test-", clean_path(title), ".R")
 }
 
 #' Imports Google Sheets document into R project

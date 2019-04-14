@@ -4,3 +4,5 @@
 ^\.Rproj\.user$
 ^\.httr-oauth$
 ^LICENSE\.md$
+.httr-oauth
+.travis.yml

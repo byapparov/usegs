@@ -12,11 +12,11 @@ mock_gs_read <- function(ss, ws) {
 
 
 describe("use_gs_acceptance()", {
-  it("creates local files from a given spreadsheet",
-     with_mock(
-       `googlesheets::gs_key` = mock_gs_key,
-       `googlesheets::gs_read` = mock_gs_read,
-      {
+  it(
+    "creates local files from a given spreadsheet",
+    with_mock(
+      `googlesheets::gs_key` = mock_gs_key,
+      `googlesheets::gs_read` = mock_gs_read, {
         use_gs_acceptance(x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
                           extension = "csv")
 
@@ -29,16 +29,26 @@ describe("use_gs_acceptance()", {
 
         tab.names <- c(multiple.files.in, "single-file-in", "file-out")
         file.name <- "usegs-acceptance"
-        expected.file.paths <-
-          paste0("tests/testthat/data/", file.name, "/", tab.names, ".csv")
+        expected.file.paths <- paste0(
+          "tests/testthat/data/",
+          file.name, "/",
+          tab.names, ".csv"
+        )
+
         expect_true(all(file.exists(expected.file.paths)))
 
-        use_gs_acceptance(x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
-                          extension = "json")
-        expected.file.paths <-
-          paste0("tests/testthat/data/", file.name, "/", tab.names, ".json")
+        use_gs_acceptance(
+          x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
+          extension = "json"
+        )
+        expected.file.paths <- paste0(
+          "tests/testthat/data/",
+          file.name, "/",
+          tab.names, ".json"
+        )
         expect_true(all(file.exists(expected.file.paths)))
-    })
+      }
+    )
   )
 })
 
