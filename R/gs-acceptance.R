@@ -141,6 +141,13 @@ clean_variable <- function(x) {
 #' @return path to the target file with code
 #' @noRd
 make_acceptance_test <- function(title, files) {
+  path <- path_acceptance_code(title)
+
+  if (file.exists(path)) {
+    message("Test case code file already exists: ", path)
+    return(path)
+  }
+
   res <- paste0("context(\"", title, "\")", "\n\n")
   res <- paste0(res, "test_that(\"TODO: test case description\", {\n")
 
@@ -155,7 +162,7 @@ make_acceptance_test <- function(title, files) {
     "  stop(\"acceptance test is not implemented\")\n",
     "})"
   )
-  path <- path_acceptance_code(title)
+
   write(res, file = path)
   path
 }
@@ -169,4 +176,17 @@ code_read_test_file <- function(file) {
   else if (grepl("\\.csv", relative.file.name)) {
     paste0("  ", clean_variable(variable.name), " <- read.csv(\"", relative.file.name, "\")")
   }
+}
+
+#' Loads acceptance docs based on the yaml config file
+#'
+#' @export
+#' @param config path to the yaml configuration file
+refresh_project_acceptance <- function(config = ".acceptance.yml") {
+  assertthat::assert_that(file.exists(config))
+  acceptance <- yaml::yaml.load_file(config)
+
+  lapply(acceptance$acceptance_documents, function(x) {
+    use_gs_acceptance(x$key, x$extension)
+  })
 }

@@ -14,7 +14,8 @@ Imports:
     googlesheets,
     usethis,
     jsonlite,
-    assertthat
+    assertthat,
+    yaml
 Suggests: 
     testthat
 RoxygenNote: 6.0.1

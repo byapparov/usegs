@@ -2,7 +2,7 @@ context("usegs")
 
 mock_gs_key <- function(...) {
   load("data/gap.rda")
-  gap
+  get("gap")
 }
 
 mock_gs_read <- function(ss, ws) {
@@ -60,13 +60,32 @@ describe("use_gs_acceptance()", {
 describe("make_acceptance_test()", {
   it("creates acceptance test R file in testthat folder", {
     test.title <- "customers-test"
-    data.files <- c("tests/testhat/customers.csv",
-                    "tests/testhat/orders.csv")
-    res <- make_acceptance_test(title = test.title,
-                                files = data.files)
+    data.files <- c(
+      "tests/testhat/customers.csv",
+      "tests/testhat/orders.csv"
+    )
+    res <- make_acceptance_test(
+      title = test.title,
+      files = data.files
+    )
 
     expect_equal(res, "tests/testthat/test-customers-test.R")
 
+  })
+  it("messages if acceptance test R file already exists", {
+
+    test.title <- "customers-test"
+    data.files <- c(
+      "tests/testhat/customers.csv",
+      "tests/testhat/orders.csv"
+    )
+    expect_message(
+      make_acceptance_test(
+        title = test.title,
+        files = data.files
+      ),
+      regexp = "exists"
+    )
   })
 })
 

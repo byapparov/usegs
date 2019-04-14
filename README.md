@@ -27,3 +27,26 @@ use_gs_acceptance(
   extension = "csv"
 )
 ```
+
+You can also refresh data for all of your acceptance tests if you maintain `.acceptance.yml` file.
+
+This file contains simple structure that references Google Sheets:
+
+```yaml
+acceptance_documents:
+  - key: '1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w'
+    extension: csv
+    description: Accceptance file example 1
+    story: ST-100
+
+  - key: '2bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-x'
+    extension: json
+    description: Accceptance file example 2
+    story: ST-200
+```
+
+```r
+# Running this function will save data from all acceptance 
+# Google Sheet files localy in 'tests/testthat/data/{doc title}/' folders
+refresh_project_acceptance()
+```
