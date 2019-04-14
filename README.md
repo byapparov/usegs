@@ -50,5 +50,5 @@ acceptance_documents:
 ```r
 # Running this function will save data from all acceptance 
 # Google Sheet files localy in 'tests/testthat/data/{doc title}/' folders
-refresh_project_acceptance()
+usegs::refresh_project_acceptance()
 ```
