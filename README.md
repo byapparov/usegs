@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/byapparov/usegs.svg?branch=master)](https://travis-ci.org/byapparov/usegs)
+[![codecov.io](https://codecov.io/github/yapparov/usegs/coverage.svg?branch=master)](https://codecov.io/github/byapparov/usegs?branch=master)
+
+
 # usegs
 
 usegs package allows easy copy of Goolge Sheets to local project files. Acceptance files or other data where Google Sheet is source can be easiliy copied.
