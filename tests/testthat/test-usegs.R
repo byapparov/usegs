@@ -20,3 +20,27 @@ describe("use_gs_acceptance()", {
     expect_true(all(file.exists(expected.file.paths)))
   })
 })
+
+describe("make_acceptance_test()", {
+  it("creates acceptance test R file in testthat folder", {
+    test.title <- "customers-test"
+    data.files <- c(
+      "tests/testhat/customers.csv",
+      "tests/testhat/orders.csv"
+    )
+    res <- make_acceptance_test(
+      title = test.title,
+      files = data.files
+    )
+
+    expect_equal(res, "tests/testthat/test-customers-test.R")
+
+  })
+})
+
+describe("code_read_test_file()", {
+  it("creates R code to extract test data into variable", {
+    res <- code_read_test_file("tests/testthat/customers.csv")
+    expect_equal(trimws(res), "customers.csv <- read.csv(\"customers.csv\")")
+  })
+})
