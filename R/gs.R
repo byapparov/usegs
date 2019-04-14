@@ -27,8 +27,8 @@ path_acceptance_data <- function(title, root = "tests/testthat/data") {
   paste0(root, "/", title)
 }
 
-path_acceptance_code <- function(title, root = "tests/testhat") {
-  paste0(root)
+path_acceptance_code <- function(title, root = "tests/testthat") {
+  paste0(root, "/test-", clean_path(title), ".R")
 }
 
 #' Imports Google Sheets document into R project
@@ -155,7 +155,7 @@ make_acceptance_test <- function(title, files) {
     "  stop(\"acceptance test is not implemented\")\n",
     "})"
   )
-  path <- paste0("tests/testthat/test-", clean_path(title), ".R")
+  path <- path_acceptance_code(title)
   write(res, file = path)
   path
 }
@@ -163,5 +163,10 @@ make_acceptance_test <- function(title, files) {
 code_read_test_file <- function(file) {
   relative.file.name <- gsub(".*/testthat/", "", file)
   variable.name <- gsub(".*/data/", "", file)
-  paste0("  ", clean_variable(variable.name), " <- read.csv(\"", relative.file.name, "\")")
+  if (grepl("\\.json", relative.file.name)) {
+    paste0("  ", clean_variable(variable.name), " <- jsonlite::stream_in(file(\"", relative.file.name, "\"))")
+  }
+  else if (grepl("\\.csv", relative.file.name)) {
+    paste0("  ", clean_variable(variable.name), " <- read.csv(\"", relative.file.name, "\")")
+  }
 }
