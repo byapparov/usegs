@@ -59,8 +59,16 @@ describe("make_acceptance_test()", {
 
 describe("code_read_test_file()", {
   it("creates R code to extract test data into variable", {
-    res <- code_read_test_file("tests/testthat/customers.csv")
-    expect_equal(trimws(res),
-                 "customers.csv <- read.csv(\"customers.csv\")")
+    res <- code_read_test_file("tests/testthat/data/file.csv")
+    expect_equal(
+      trimws(res),
+      "file.csv <- read.csv(\"data/file.csv\")"
+    )
+
+    res <- code_read_test_file("tests/testthat/data/file.json")
+    expect_equal(
+      trimws(res),
+      "file.json <- jsonlite::stream_in(file(\"data/file.json\"))"
+    )
   })
 })
