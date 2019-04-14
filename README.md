@@ -31,7 +31,7 @@ use_gs_acceptance(
 
 You can also refresh data for all of your acceptance tests if you maintain `.acceptance.yml` file.
 
-This file contains simple structure that references Google Sheets:
+This file contains a simple structure that references Google Sheets and instructs how to save them locally:
 
 ```yaml
 # .acceptance.yml file in working directory of the project or package
