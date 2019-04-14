@@ -1,0 +1,12 @@
+# this file is part of the unit testsing for refresh_project_acceptance()
+# file is copied to .acceptance.yml on setup which is dropped at teardown
+acceptance_documents:
+  - key: '1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w' # Google Sheet key
+    extension: csv # defines how data will be saved localy
+    description: Accceptance file example 1 # you can add other fields for documentation purposes
+    story: ST-100
+
+  - key: '2bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-x'
+    extension: json
+    description: Accceptance file example 2
+    story: ST-200

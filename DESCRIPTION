@@ -12,10 +12,10 @@ LazyData: true
 Imports: 
     data.table,
     googlesheets,
-    usethis,
     jsonlite,
     assertthat,
     yaml
 Suggests: 
-    testthat
+    testthat,
+    mockery
 RoxygenNote: 6.0.1

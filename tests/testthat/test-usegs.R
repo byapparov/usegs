@@ -104,3 +104,27 @@ describe("code_read_test_file()", {
     )
   })
 })
+
+describe("refresh_project_acceptance()", {
+  it("calls use_gs_acceptance() for each key in the config file", {
+    mock_use_gs_acceptance <- mockery::mock()
+    with_mock(
+      use_gs_acceptance = mock_use_gs_acceptance, {
+        refresh_project_acceptance()
+        mockery::expect_called(mock_use_gs_acceptance, 2)
+        mockery::expect_args(
+          mock_use_gs_acceptance,
+          n = 1,
+          x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
+          extension = "csv"
+        )
+        mockery::expect_args(
+          mock_use_gs_acceptance,
+          n = 2,
+          x = "2bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-x",
+          extension = "json"
+        )
+      }
+    )
+  })
+})
