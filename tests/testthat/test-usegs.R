@@ -17,8 +17,11 @@ describe("use_gs_acceptance()", {
     with_mock(
       `googlesheets::gs_key` = mock_gs_key,
       `googlesheets::gs_read` = mock_gs_read, {
-        use_gs_acceptance(x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
-                          extension = "csv")
+
+        use_gs_acceptance(
+          x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
+          extension = "csv"
+        )
 
         multiple.files.in <- c(
           "purchase_order_approved",
