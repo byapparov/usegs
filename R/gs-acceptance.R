@@ -2,6 +2,7 @@
 #'
 #' @param x key of the Google Sheet document
 #' @param extension file extension for local data, either `csv` or `json`. defaults to csv.
+#' @param folder name of the folder with tests
 #' @export
 use_gs_acceptance <- function(x, extension = "csv", folder = default_tests_folder()) {
   gap <- googlesheets::gs_key(
@@ -149,7 +150,8 @@ clean_variable <- function(x) {
 #' Creates acceptance test file with code that loads acceptance data
 #'
 #' @param title title of the acceptance test document
-#' @param fiels names of the data files that were imported from acceptance document
+#' @param files names of the data files that were imported from acceptance document
+#' @param folder name of the root folder where test data will be saved
 #' @return path to the target file with code
 #' @noRd
 make_acceptance_test <- function(title, files, folder = default_tests_folder()) {

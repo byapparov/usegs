@@ -4,12 +4,14 @@
 \alias{use_gs_acceptance}
 \title{Function that takes the Google Spreadsheet document key to save it in the working dir}
 \usage{
-use_gs_acceptance(x, extension = "csv")
+use_gs_acceptance(x, extension = "csv", folder = default_tests_folder())
 }
 \arguments{
 \item{x}{key of the Google Sheet document}
 
 \item{extension}{file extension for local data, either `csv` or `json`. defaults to csv.}
+
+\item{folder}{name of the folder with tests}
 }
 \description{
 Function that takes the Google Spreadsheet document key to save it in the working dir
