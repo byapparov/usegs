@@ -28,7 +28,7 @@ default_tests_folder <- function() {
   "tests/testthat"
 }
 
-path_acceptance_data <- function(title, root = "tests/testthat") {
+path_acceptance_data <- function(title, root = default_tests_folder()) {
   path <- paste0(root, "/data/", title)
   if (!dir.exists(path)) {
     dir.create(path, recursive = TRUE)
@@ -36,7 +36,7 @@ path_acceptance_data <- function(title, root = "tests/testthat") {
   path
 }
 
-path_acceptance_code <- function(title, root = "tests/testthat") {
+path_acceptance_code <- function(title, root = default_tests_folder()) {
   if (!dir.exists(root)) {
     dir.create(root, recursive = TRUE)
   }
@@ -180,7 +180,7 @@ make_acceptance_test <- function(title, files, folder = default_tests_folder()) 
 }
 
 code_read_test_file <- function(file) {
-  relative.file.name <- gsub(".*/testthat/", "", file)
+  relative.file.name <- gsub(".*/testthat/", "", file) # TODO: this hard code should be removed
   variable.name <- gsub(".*/data/", "", file)
   if (grepl("\\.json", relative.file.name)) {
     paste0("  ", clean_variable(variable.name), " <- jsonlite::stream_in(file(\"", relative.file.name, "\"))")
