@@ -12,8 +12,7 @@ mock_gs_read <- function(ss, ws) {
 
 
 describe("use_gs_acceptance()", {
-  it(
-    "creates local files from a given spreadsheet",
+  it("creates local files from a given spreadsheet",
     with_mock(
       `googlesheets::gs_key` = mock_gs_key,
       `googlesheets::gs_read` = mock_gs_read, {
@@ -50,6 +49,19 @@ describe("use_gs_acceptance()", {
           tab.names, ".json"
         )
         expect_true(all(file.exists(expected.file.paths)))
+
+        use_gs_acceptance(
+          x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
+          extension = "json",
+          folder = "s1/s2"
+        )
+        expected.file.paths <- paste0(
+          "s1/s2/data/",
+          file.name, "/",
+          tab.names, ".json"
+        )
+        expect_true(all(file.exists(expected.file.paths)))
+
       }
     )
   )
@@ -68,8 +80,15 @@ describe("make_acceptance_test()", {
       title = test.title,
       files = data.files
     )
-
     expect_equal(res, "tests/testthat/test-customers-test.R")
+
+
+    res <- make_acceptance_test(
+      title = test.title,
+      files = data.files,
+      folder = "t1/t2"
+    )
+    expect_equal(res, "t1/t2/test-customers-test.R")
 
   })
   it("messages if acceptance test R file already exists", {
@@ -116,7 +135,8 @@ describe("refresh_project_acceptance()", {
           mock_use_gs_acceptance,
           n = 1,
           x = "1bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-w",
-          extension = "csv"
+          extension = "csv",
+          folder = "order/tests"
         )
         mockery::expect_args(
           mock_use_gs_acceptance,

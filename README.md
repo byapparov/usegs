@@ -40,6 +40,7 @@ acceptance_documents:
     extension: csv # defines how data will be saved localy
     description: Accceptance file example 1 # you can add other fields for documentation purposes
     story: ST-100
+    folder: order/tests
 
   - key: '2bkoQYLYAVqgP4bCoqVe-yDB1mdX83cFtOqJ7q8GkT-x'
     extension: json

@@ -3,7 +3,7 @@
 #' @param x key of the Google Sheet document
 #' @param extension file extension for local data, either `csv` or `json`. defaults to csv.
 #' @export
-use_gs_acceptance <- function(x, extension = "csv") {
+use_gs_acceptance <- function(x, extension = "csv", folder = default_tests_folder()) {
   gap <- googlesheets::gs_key(
     x,
     lookup = FALSE,
@@ -12,22 +12,34 @@ use_gs_acceptance <- function(x, extension = "csv") {
   tabs <- gap$ws$ws_title
   title <- clean_path(gap$sheet_title)
 
-  data.dir <- path_acceptance_data(title)
-  if (!dir.exists(data.dir)) {
-    dir.create(data.dir, recursive = TRUE)
-  }
+  data.dir <- path_acceptance_data(title, root = folder)
   save_fn <- make_save_mock_data(data.dir, extension)
 
   data.files <- import_acceptance_document(gap, tabs, save_fn)
-  code.file <- make_acceptance_test(title, data.files)
+  code.file <- make_acceptance_test(
+    title,
+    files = data.files,
+    folder = folder
+  )
   message("Inspect the file with acceptance test: ", code.file)
 }
 
-path_acceptance_data <- function(title, root = "tests/testthat/data") {
-  paste0(root, "/", title)
+default_tests_folder <- function() {
+  "tests/testthat"
+}
+
+path_acceptance_data <- function(title, root = "tests/testthat") {
+  path <- paste0(root, "/data/", title)
+  if (!dir.exists(path)) {
+    dir.create(path, recursive = TRUE)
+  }
+  path
 }
 
 path_acceptance_code <- function(title, root = "tests/testthat") {
+  if (!dir.exists(root)) {
+    dir.create(root, recursive = TRUE)
+  }
   paste0(root, "/", "test-", clean_path(title), ".R")
 }
 
@@ -140,8 +152,8 @@ clean_variable <- function(x) {
 #' @param fiels names of the data files that were imported from acceptance document
 #' @return path to the target file with code
 #' @noRd
-make_acceptance_test <- function(title, files) {
-  path <- path_acceptance_code(title)
+make_acceptance_test <- function(title, files, folder = default_tests_folder()) {
+  path <- path_acceptance_code(title, root = folder)
 
   if (file.exists(path)) {
     message("Test case code file already exists: ", path)
@@ -187,6 +199,12 @@ refresh_project_acceptance <- function(config = ".acceptance.yml") {
   acceptance <- yaml::yaml.load_file(config)
 
   lapply(acceptance$acceptance_documents, function(x) {
-    use_gs_acceptance(x$key, x$extension)
+    if ("folder" %in% names(x)) {
+      use_gs_acceptance(x$key, x$extension, x$folder)
+    }
+    else {
+      use_gs_acceptance(x$key, x$extension)
+    }
+
   })
 }
