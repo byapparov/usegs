@@ -58,6 +58,7 @@ import_acceptance_document <- function(gap, tabs, save_fn) {
       name = tab,
       save_fn = save_fn
     )
+    Sys.sleep(5)
   })
   unlist(files)
 }
